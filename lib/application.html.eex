@@ -10,13 +10,15 @@
   <body>
     Name: <input type="text" id="name">
     <hr>
-    <main id="main"></main>
-    <br>
-    <form>
+     <form autocomplete="off">
       <input id="message" type="text">
-      <br>
-      <br>
-      <input type="submit" value="send" id="button">
+      <input type="submit" value="Go" id="button_chat">
     </form>
+    <input type="submit" value="3d6" id="button_3d6">
+    <input type="submit" value="1d6" id="button_1d6">
+    <input type="submit" value="1d3" id="button_1d3">  
+    <br>
+    <main id="main"></main>
+
   </body>
 </html>

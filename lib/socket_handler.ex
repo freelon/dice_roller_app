@@ -16,14 +16,21 @@ defmodule DiceRollerApp.SocketHandler do
 
   def websocket_handle({:text, json}, state) do
     payload = Jason.decode!(json)
-    IO.inspect payload
     message = payload["data"]["message"]
     name = payload["data"]["name"]
 
     reg = Regex.named_captures(~r/(?<num_dice>\d*)d(?<num_sides>\d+)/, message)
+    IO.inspect reg
     response = case reg do
         nil -> message
-        reg -> "match"
+        reg ->
+            dices = case Integer.parse reg["num_dice"] do
+                :error -> 1
+                {number, _} -> number
+            end
+            {sides, _} = Integer.parse reg["num_sides"]
+            results = for _ <- 1..dices, do: :rand.uniform(sides)
+            "#{Jason.encode!(results)} = #{Enum.sum(results)}"
     end
     
     Registry.DiceRollerApp
@@ -33,7 +40,7 @@ defmodule DiceRollerApp.SocketHandler do
       end
     end)
 
-    {:reply, {:text, message}, state}
+    {:ok, state}
   end
 
   def websocket_info(info, state) do
