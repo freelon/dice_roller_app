@@ -25,11 +25,10 @@ defmodule DiceRollerApp do
   defp dispatch do
     [
       {:_,
-        [
-          {"/ws/[...]", DiceRollerApp.SocketHandler, []},
-          {:_, Plug.Cowboy.Handler, {DiceRollerApp.Router, []}}
-        ]
-      }
+       [
+         {"/ws/[...]", DiceRollerApp.SocketHandler, []},
+         {:_, Plug.Cowboy.Handler, {DiceRollerApp.Router, []}}
+       ]}
     ]
   end
 end

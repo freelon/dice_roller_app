@@ -1,24 +1,29 @@
 defmodule DiceRollerApp.Router do
-    use Plug.Router
-    require EEx
+  use Plug.Router
+  require EEx
 
-    plug Plug.Static,
-     at: "/",
-     from: :dice_roller_app
-    plug :match
-    plug Plug.Parsers,
-      parsers: [:json],
-      pass: ["application/json"],
-      json_decoder: Jason
-    plug :dispatch
+  plug(Plug.Static,
+    at: "/",
+    from: :dice_roller_app
+  )
 
-    EEx.function_from_file(:defp, :application_html, "lib/application.html.eex", [])
+  plug(:match)
 
-    get "/" do
-        send_resp(conn, 200, application_html())
-    end
+  plug(Plug.Parsers,
+    parsers: [:json],
+    pass: ["application/json"],
+    json_decoder: Jason
+  )
 
-    match _ do
-        send_resp(conn, 404, "404")
-    end
+  plug(:dispatch)
+
+  EEx.function_from_file(:defp, :application_html, "lib/application.html.eex", [])
+
+  get "/" do
+    send_resp(conn, 200, application_html())
+  end
+
+  match _ do
+    send_resp(conn, 404, "404")
+  end
 end
