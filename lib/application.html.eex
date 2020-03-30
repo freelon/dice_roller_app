@@ -3,6 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <script type="application/javascript" defer="defer" src="js/application.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/application.css">
     <title>
       My WebSocket App
     </title>

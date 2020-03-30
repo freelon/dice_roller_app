@@ -8,27 +8,27 @@
 
                 const eventContent = JSON.parse(event.data)
 
-                const pTag = document.createElement("p")
+                const pTag = document.createElement("div")
                 pTag.className = "chatEntry"
-                const namePart = document.createElement("p")
+                const namePart = document.createElement("div")
                 namePart.className = "name"
                 namePart.innerHTML = eventContent.name + ":"
                 pTag.append(namePart)
 
-                const messagePart = document.createElement("p")
+                const messagePart = document.createElement("div")
                 messagePart.className = "messagePart"
                 pTag.append(messagePart)
-                const request = document.createElement("p")
+                const request = document.createElement("div")
                 request.className = "request"
                 messagePart.append(request)
-                const message = document.createElement("p")
+                const message = document.createElement("div")
                 message.className = "message"
                 messagePart.append(message)
 
                 if (eventContent.diceResults == null) {
                     message.innerHTML = eventContent.message
                 } else {
-                    message.innerHTML = eventContent.diceResults
+                    message.innerHTML = eventContent.diceResults.join(" + ") + " = " + eventContent.diceResults.reduce((a, b) => a + b, 0)
                     request.innerHTML = eventContent.message
                 }
 
