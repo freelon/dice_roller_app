@@ -6,8 +6,31 @@
             this.socket.addEventListener("message", (event) => {
                 console.log(event)
 
+                const eventContent = JSON.parse(event.data)
+
                 const pTag = document.createElement("p")
-                pTag.innerHTML = event.data
+                pTag.className = "chatEntry"
+                const namePart = document.createElement("p")
+                namePart.className = "name"
+                namePart.innerHTML = eventContent.name + ":"
+                pTag.append(namePart)
+
+                const messagePart = document.createElement("p")
+                messagePart.className = "messagePart"
+                pTag.append(messagePart)
+                const request = document.createElement("p")
+                request.className = "request"
+                messagePart.append(request)
+                const message = document.createElement("p")
+                message.className = "message"
+                messagePart.append(message)
+
+                if (eventContent.diceResults == null) {
+                    message.innerHTML = eventContent.message
+                } else {
+                    message.innerHTML = eventContent.diceResults
+                    request.innerHTML = eventContent.message
+                }
 
                 document.getElementById("main").prepend(pTag)
             })
