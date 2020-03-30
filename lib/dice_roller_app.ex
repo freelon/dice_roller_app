@@ -19,6 +19,7 @@ defmodule DiceRollerApp do
 
     opts = [strategy: :one_for_one, name: DiceRollerApp.Application]
     Supervisor.start_link(children, opts)
+    MessageStore.start_link([])
   end
 
   defp dispatch do

@@ -6,10 +6,15 @@
     margin: 4px;
 }
 
+#main.disconnected {
+    background-color: gray;
+}
+
 .chatEntry .name {
     color: darkslategray;
     text-align: end;
     width: 8em;
+    min-width: 8em;
     margin: 4px;
     margin-right: 6px;
     /* border-style: dotted; */

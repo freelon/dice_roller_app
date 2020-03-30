@@ -3,6 +3,12 @@
         setupSocket() {
             this.socket = new WebSocket("ws://localhost:4000/ws/chat")
 
+            this.socket.addEventListener("open", () => {
+                const main = document.getElementById("main")
+                main.innerText = ""
+                main.classList.remove("disconnected")
+            })
+
             this.socket.addEventListener("message", (event) => {
                 console.log(event)
 
@@ -36,6 +42,7 @@
             })
 
             this.socket.addEventListener("close", () => {
+                document.getElementById("main").classList.add("disconnected")
                 this.setupSocket()
             })
         }

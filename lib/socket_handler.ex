@@ -11,6 +11,10 @@ defmodule DiceRollerApp.SocketHandler do
     Registry.DiceRollerApp
     |> Registry.register(state.registry_key, {})
     
+    for message <- Enum.reverse(MessageStore.messages) do
+      Process.send(self(), Jason.encode!(message), [])
+    end
+
     {:ok, state}
   end
 
@@ -26,6 +30,7 @@ defmodule DiceRollerApp.SocketHandler do
           Process.send(pid, "#{Jason.encode!(response)}", [])
         end
       end)
+      MessageStore.append(response)
     end
 
     {:ok, state}
